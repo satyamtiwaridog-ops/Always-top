@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Colorful Rain</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    overflow: hidden;
+    height: 100vh;
+    background: linear-gradient(#07152b, #11152d, #050510);
+}
+
+#rain {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+}
+
+.drop {
+    position: absolute;
+    top: -60px;
+    width: 2px;
+    border-radius: 50%;
+    opacity: 0.8;
+    box-shadow: 0 0 8px currentColor;
+    animation: fall linear infinite;
+}
+
+@keyframes fall {
+    from {
+        transform: translateY(-70px) translateX(0);
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 0.9;
+    }
+
+    to {
+        transform: translateY(110vh) translateX(-70px);
+        opacity: 0.5;
+    }
+}
+
+/* Soft colorful glow */
+.glow {
+    position: fixed;
+    width: 350px;
+    height: 350px;
+    border-radius: 50%;
+    filter: blur(100px);
+    opacity: 0.12;
+    animation: moveGlow 10s ease-in-out infinite alternate;
+}
+
+@keyframes moveGlow {
+    from {
+        background: cyan;
+        transform: translate(-100px, 50px);
+    }
+
+    to {
+        background: purple;
+        transform: translate(70vw, 60vh);
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="glow"></div>
+<div id="rain"></div>
+
+<script>
+
+const rain = document.getElementById("rain");
+
+const colors = [
+    "#00eaff",
+    "#00ff88",
+    "#ffe600",
+    "#ff4dff",
+    "#ff477e",
+    "#7c5cff",
+    "#ff8c00"
+];
+
+for (let i = 0; i < 320; i++) {
+
+    const drop = document.createElement("div");
+
+    drop.className = "drop";
+
+    drop.style.left = Math.random() * 110 + "vw";
+
+    drop.style.height =
+        (Math.random() * 25 + 15) + "px";
+
+    drop.style.color =
+        colors[Math.floor(Math.random() * colors.length)];
+
+    drop.style.background =
+        "currentColor";
+
+    /* Natural rain speed */
+    drop.style.animationDuration =
+        (Math.random() * 1.5 + 1.2) + "s";
+
+    drop.style.animationDelay =
+        "-" + Math.random() * 4 + "s";
+
+    rain.appendChild(drop);
+}
+
+</script>
+
+</body>
+</html>
